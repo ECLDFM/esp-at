@@ -682,7 +682,7 @@ void at_pre_deepsleep_callback (void)
     */
     //rtc_gpio_init(GPIO_NUM_4);
     //gpio_set_direction(s_at_uart_port_pin.rts, GPIO_MODE_INPUT);
-    gpio_set_direction(s_at_uart_port_pin.rx, GPIO_MODE_DISABLE);
+    //gpio_set_direction(s_at_uart_port_pin.rx, GPIO_MODE_DISABLE);
     //esp_sleep_enable_ext0_wakeup(s_at_uart_port_pin.rts, 1);
     if (s_at_uart_port_pin.tx >= 0) {
         gpio_set_direction(s_at_uart_port_pin.tx, GPIO_MODE_DISABLE);
@@ -742,5 +742,6 @@ void at_custom_init(void)
 {
     esp_at_custom_cmd_array_regist (at_custom_cmd, sizeof(at_custom_cmd)/sizeof(at_custom_cmd[0]));
     esp_at_port_active_write_data((uint8_t *)"\r\nready\r\n",strlen("\r\nready\r\n"));
+    esp_at_port_active_write_data((uint8_t *)"\r\nr\r\n",strlen("\r\nr\r\n"));
 }
 #endif
