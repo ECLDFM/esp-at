@@ -678,8 +678,8 @@ void at_pre_deepsleep_callback (void)
 
     printf("at_pre_deepsleep_callback\r\n");
     esp_sleep_enable_ext0_wakeup(4, 1);
-    rtc_gpio_pullup_dis(4);
-    rtc_gpio_pulldown_en(4);
+    //rtc_gpio_pullup_dis(4);
+    //rtc_gpio_pulldown_en(4);
     printf("deepsleep...\r\n");
     vTaskDelay(100000);
     /* Do something before deep sleep
