@@ -440,17 +440,17 @@ void at_set_mcu_state_if_sleep(at_sleep_mode_t mode)
     case AT_DISABLE_SLEEP:
         xEventGroupSetBits(s_wkmcu_evt_group, AT_MCU_AWAKE_ON_AT_SLEEP);
         s_mcu_sleep = false;
-        esp_at_port_active_write_data((uint8_t *)"\r\nAT_DISABLE_SLEEP\r\n",strlen("\r\nAT_DISABLE_SLEEP\r\n"));
+        //esp_at_port_active_write_data((uint8_t *)"\r\nAT_DISABLE_SLEEP\r\n",strlen("\r\nAT_DISABLE_SLEEP\r\n"));
         break;
 
     case AT_MIN_MODEM_SLEEP:
-        esp_at_port_active_write_data((uint8_t *)"\r\nAT_MIN_MODEM_SLEEP\r\n",strlen("\r\nAT_MIN_MODEM_SLEEP\r\n"));
+        //esp_at_port_active_write_data((uint8_t *)"\r\nAT_MIN_MODEM_SLEEP\r\n",strlen("\r\nAT_MIN_MODEM_SLEEP\r\n"));
         break;
     case AT_LIGHT_SLEEP:
-        esp_at_port_active_write_data((uint8_t *)"\r\nAT_LIGHT_SLEEP\r\n",strlen("\r\nAT_LIGHT_SLEEP\r\n"));
+        //esp_at_port_active_write_data((uint8_t *)"\r\nAT_LIGHT_SLEEP\r\n",strlen("\r\nAT_LIGHT_SLEEP\r\n"));
         break;
     case AT_MAX_MODEM_SLEEP:
-        esp_at_port_active_write_data((uint8_t *)"\r\nAT_MAX_MODEM_SLEEP\r\n",strlen("\r\nAT_MAX_MODEM_SLEEP\r\n"));
+        //esp_at_port_active_write_data((uint8_t *)"\r\nAT_MAX_MODEM_SLEEP\r\n",strlen("\r\nAT_MAX_MODEM_SLEEP\r\n"));
         xEventGroupClearBits(s_wkmcu_evt_group, AT_MCU_AWAKE_BIT);
         s_mcu_sleep = true;
         break;
@@ -460,6 +460,7 @@ void at_set_mcu_state_if_sleep(at_sleep_mode_t mode)
     }
 
     if (s_wkmcu_cfg.enable) {
+        esp_at_port_active_write_data((uint8_t *)"\r\ns_wkmcu_cfg.enable\r\n",strlen("\r\ns_wkmcu_cfg.enable\r\n"));
         gpio_set_level(s_wkmcu_cfg.wake_number, !s_wkmcu_cfg.wake_signal);
     }
 
@@ -468,6 +469,7 @@ void at_set_mcu_state_if_sleep(at_sleep_mode_t mode)
 
 void at_wkmcu_if_config(at_write_data_fn_t write_data_fn)
 {
+    esp_at_port_active_write_data((uint8_t *)"\r\nat_wkmcu_if_config\r\n",strlen("\r\nat_wkmcu_if_config\r\n"));
     if (!s_wkmcu_cfg.enable || !s_mcu_sleep) {
         return;
     }
@@ -490,12 +492,14 @@ void at_wkmcu_if_config(at_write_data_fn_t write_data_fn)
 
     if (!(uxBits & s_wkmcu_cfg.check_mcu_awake)) {
         // timeout
+        esp_at_port_active_write_data((uint8_t *)"\r\ntimeout\r\n",strlen("\r\ntimeout\r\n"));
         xEventGroupSetBits(s_wkmcu_evt_group, AT_MCU_AWAKE_ON_TIMEO);
         s_mcu_sleep = true;
     }
 
     // reverse wake up signal
     if (s_wkmcu_cfg.wake_mode == WKMCU_MODE_GPIO) {
+        esp_at_port_active_write_data((uint8_t *)"\r\nreverse wake up signal\r\n",strlen("\r\nreverse wake up signal\r\n"));
         gpio_set_level(s_wkmcu_cfg.wake_number, !s_wkmcu_cfg.wake_signal);
     }
 
