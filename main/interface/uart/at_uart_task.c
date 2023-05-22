@@ -680,10 +680,6 @@ void at_pre_deepsleep_callback (void)
     /* Do something before deep sleep
      * Set uart pin for power saving, in case of leakage current
     */
-    //rtc_gpio_init(GPIO_NUM_4);
-    //gpio_set_direction(s_at_uart_port_pin.rts, GPIO_MODE_INPUT);
-    //gpio_set_direction(s_at_uart_port_pin.rx, GPIO_MODE_DISABLE);
-    //esp_sleep_enable_ext0_wakeup(s_at_uart_port_pin.rts, 1);
     if (s_at_uart_port_pin.tx >= 0) {
         gpio_set_direction(s_at_uart_port_pin.tx, GPIO_MODE_DISABLE);
     }
