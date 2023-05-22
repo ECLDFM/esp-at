@@ -440,11 +440,17 @@ void at_set_mcu_state_if_sleep(at_sleep_mode_t mode)
     case AT_DISABLE_SLEEP:
         xEventGroupSetBits(s_wkmcu_evt_group, AT_MCU_AWAKE_ON_AT_SLEEP);
         s_mcu_sleep = false;
+        esp_at_port_active_write_data((uint8_t *)"\r\nAT_DISABLE_SLEEP\r\n",strlen("\r\nAT_DISABLE_SLEEP\r\n"));
         break;
 
     case AT_MIN_MODEM_SLEEP:
+        esp_at_port_active_write_data((uint8_t *)"\r\nAT_MIN_MODEM_SLEEP\r\n",strlen("\r\nAT_MIN_MODEM_SLEEP\r\n"));
+        break;
     case AT_LIGHT_SLEEP:
+        esp_at_port_active_write_data((uint8_t *)"\r\nAT_LIGHT_SLEEP\r\n",strlen("\r\nAT_LIGHT_SLEEP\r\n"));
+        break;
     case AT_MAX_MODEM_SLEEP:
+        esp_at_port_active_write_data((uint8_t *)"\r\nAT_MAX_MODEM_SLEEP\r\n",strlen("\r\nAT_MAX_MODEM_SLEEP\r\n"));
         xEventGroupClearBits(s_wkmcu_evt_group, AT_MCU_AWAKE_BIT);
         s_mcu_sleep = true;
         break;
