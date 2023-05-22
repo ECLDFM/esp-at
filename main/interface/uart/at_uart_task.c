@@ -33,8 +33,6 @@
 #include "esp_at.h"
 #include "nvs.h"
 #include "nvs_flash.h"
-#include "soc/esp_sleep.h"
-#include "soc/rtc_io.h"
 
 #ifdef CONFIG_AT_BASE_ON_UART
 #include "esp_system.h"
