@@ -675,6 +675,9 @@ void at_pre_sleep_callback(at_sleep_mode_t mode)
 
 void at_pre_deepsleep_callback (void)
 {
+
+    printf("at_pre_deepsleep_callback\r\n");
+    vTaskDelay(100000);
     /* Do something before deep sleep
      * Set uart pin for power saving, in case of leakage current
     */

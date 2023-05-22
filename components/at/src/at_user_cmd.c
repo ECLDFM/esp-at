@@ -436,6 +436,7 @@ static uint8_t at_query_cmd_userdocs(uint8_t *cmd_name)
 #ifdef CONFIG_AT_USERWKMCU_COMMAND_SUPPORT
 void at_set_mcu_state_if_sleep(at_sleep_mode_t mode)
 {
+    printf("at_set_mcu_state_if_sleep: %d\r\n", mode);
     switch (mode) {
     case AT_DISABLE_SLEEP:
         xEventGroupSetBits(s_wkmcu_evt_group, AT_MCU_AWAKE_ON_AT_SLEEP);
