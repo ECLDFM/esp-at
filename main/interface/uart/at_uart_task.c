@@ -690,6 +690,9 @@ void at_pre_deepsleep_callback (void)
     if (s_at_uart_port_pin.rts >= 0) {
         gpio_set_direction(s_at_uart_port_pin.rts, GPIO_MODE_DISABLE);
     }
+    //ECL
+    esp_sleep_enable_ext0_wakeup(s_at_uart_port_pin.rts, 1);
+    //ECL
 }
 
 void at_pre_restart_callback (void)
