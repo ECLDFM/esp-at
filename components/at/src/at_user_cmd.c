@@ -460,7 +460,7 @@ void at_set_mcu_state_if_sleep(at_sleep_mode_t mode)
     }
 
     if (s_wkmcu_cfg.enable) {
-        esp_at_port_active_write_data((uint8_t *)"\r\ns_wkmcu_cfg.enable\r\n",strlen("\r\ns_wkmcu_cfg.enable\r\n"));
+        //esp_at_port_active_write_data((uint8_t *)"\r\ns_wkmcu_cfg.enable\r\n",strlen("\r\ns_wkmcu_cfg.enable\r\n"));
         gpio_set_level(s_wkmcu_cfg.wake_number, !s_wkmcu_cfg.wake_signal);
     }
 
@@ -469,17 +469,20 @@ void at_set_mcu_state_if_sleep(at_sleep_mode_t mode)
 
 void at_wkmcu_if_config(at_write_data_fn_t write_data_fn)
 {
-    esp_at_port_active_write_data((uint8_t *)"\r\nat_wkmcu_if_config\r\n",strlen("\r\nat_wkmcu_if_config\r\n"));
+    printf("at_wkmcu_if_config\r\n");
     if (!s_wkmcu_cfg.enable || !s_mcu_sleep) {
+        printf("!s_wkmcu_cfg.enable || !s_mcu_sleep\r\n");
         return;
     }
 
     switch (s_wkmcu_cfg.wake_mode) {
     case WKMCU_MODE_GPIO:
+        printf("WKMCU_MODE_GPIO: %d : %d\r\n", s_wkmcu_cfg.wake_number, s_wkmcu_cfg.wake_signal);
         gpio_set_level(s_wkmcu_cfg.wake_number, s_wkmcu_cfg.wake_signal);
         break;
 
     case WKMCU_MODE_UART:
+        printf("WKMCU_MODE_UART: %dr\n", s_wkmcu_cfg.wake_signal);
         write_data_fn(&s_wkmcu_cfg.wake_signal, 1);
         break;
 
@@ -492,14 +495,16 @@ void at_wkmcu_if_config(at_write_data_fn_t write_data_fn)
 
     if (!(uxBits & s_wkmcu_cfg.check_mcu_awake)) {
         // timeout
-        esp_at_port_active_write_data((uint8_t *)"\r\ntimeout\r\n",strlen("\r\ntimeout\r\n"));
+        //esp_at_port_active_write_data((uint8_t *)"\r\ntimeout\r\n",strlen("\r\ntimeout\r\n"));
+        printf("timeout\r\n");
         xEventGroupSetBits(s_wkmcu_evt_group, AT_MCU_AWAKE_ON_TIMEO);
         s_mcu_sleep = true;
     }
 
     // reverse wake up signal
     if (s_wkmcu_cfg.wake_mode == WKMCU_MODE_GPIO) {
-        esp_at_port_active_write_data((uint8_t *)"\r\nreverse wake up signal\r\n",strlen("\r\nreverse wake up signal\r\n"));
+        //esp_at_port_active_write_data((uint8_t *)"\r\nreverse wake up signal\r\n",strlen("\r\nreverse wake up signal\r\n"));
+        printf("reverse wake up signal\r\n");
         gpio_set_level(s_wkmcu_cfg.wake_number, !s_wkmcu_cfg.wake_signal);
     }
 
