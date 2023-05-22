@@ -742,6 +742,5 @@ void at_custom_init(void)
 {
     esp_at_custom_cmd_array_regist (at_custom_cmd, sizeof(at_custom_cmd)/sizeof(at_custom_cmd[0]));
     esp_at_port_active_write_data((uint8_t *)"\r\nready\r\n",strlen("\r\nready\r\n"));
-    esp_at_port_active_write_data((uint8_t *)"\r\nr\r\n",strlen("\r\nr\r\n"));
 }
 #endif
