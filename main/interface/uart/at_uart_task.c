@@ -695,9 +695,9 @@ void at_pre_deepsleep_callback (void)
         gpio_set_direction(s_at_uart_port_pin.rts, GPIO_MODE_DISABLE);
     }
 
-    esp_sleep_enable_ext0_wakeup(ext_wakeup_pin_0, 0);
-    rtc_gpio_pulldown_dis(ext_wakeup_pin_0);
-    rtc_gpio_pullup_en(ext_wakeup_pin_0);
+    esp_sleep_enable_ext0_wakeup(ext_wakeup_pin_0, 1);
+    rtc_gpio_pullup_dis(ext_wakeup_pin_0);
+    rtc_gpio_pulldown_en(ext_wakeup_pin_0);
     printf("deepsleep...\r\n");
     vTaskDelay(100);
         
