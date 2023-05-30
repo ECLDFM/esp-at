@@ -450,8 +450,8 @@ void at_set_mcu_state_if_sleep(at_sleep_mode_t mode)
 
     case AT_MIN_MODEM_SLEEP:
         //esp_at_port_active_write_data((uint8_t *)"\r\nAT_MIN_MODEM_SLEEP\r\n",strlen("\r\nAT_MIN_MODEM_SLEEP\r\n"));
-        printf("Timer: ");
-        printf("%d""\r\n", (uint32_t)(time));
+        //printf("Timer: ");
+        //printf("%d""\r\n", (uint32_t)(time));
         break;
     case AT_LIGHT_SLEEP:
         //esp_at_port_active_write_data((uint8_t *)"\r\nAT_LIGHT_SLEEP\r\n",strlen("\r\nAT_LIGHT_SLEEP\r\n"));

@@ -41,6 +41,8 @@
 #include "at_interface.h"
 #include "esp_sleep.h"
 #include "driver/rtc_io.h"
+#include "esp_timer.h"
+#include <inttypes.h>
 
 #ifdef CONFIG_IDF_TARGET_ESP32
 #include "esp32/rom/uart.h"
@@ -199,6 +201,7 @@ static void uart_task(void *pvParameters)
     int pattern_pos = -1;
     uint8_t *data = NULL;
     uint64_t time = 0;
+    uint64_t _pre_time = 0;
     int sleep_flag = 0;
 
     for (;;) {
