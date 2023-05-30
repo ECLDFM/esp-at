@@ -44,6 +44,8 @@
 #include "esp_at_core.h"
 #include "esp_at.h"
 
+#include "esp_timer.h"
+
 #ifdef CONFIG_AT_USER_COMMAND_SUPPORT
 
 #define AT_USERRAM_READ_BUFFER_SIZE     1024
