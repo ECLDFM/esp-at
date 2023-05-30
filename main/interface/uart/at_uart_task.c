@@ -202,13 +202,13 @@ static void uart_task(void *pvParameters)
     uint8_t *data = NULL;
     uint64_t time = 0;
     uint64_t _pre_time = 0;
-    int sleep_flag = 0;
+    //int sleep_flag = 0;
 
     for (;;) {
         //Waiting for UART event.
         time = esp_timer_get_time();
-        if ((time > 10000)&&(sleep_flag == 0)){
-            sleep_flag = 1;
+        if ((time%100000)== 0)){
+            //sleep_flag = 1;
             printf("Timeout ... deepsleep...\r\n");
         }
         if (xQueueReceive(esp_at_uart_queue, (void * )&event, (TickType_t)portMAX_DELAY)) {
