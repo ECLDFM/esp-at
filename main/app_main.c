@@ -285,13 +285,37 @@ void app_main(void)
     esp_timer_handle_t periodic_timer;
     esp_timer_create(&periodic_timer_args, &periodic_timer);
     /* The timer has been created but is not running yet */
-    esp_timer_start_periodic(periodic_timer, 10000000);
+    esp_timer_start_periodic(periodic_timer, 60000000);
 }
 
 static void periodic_timer_callback(void* arg)
 {
+    const int ext_wakeup_pin_0 = 4;
     //int64_t time_since_boot = esp_timer_get_time();
     //ESP_LOGI(TAG, "Periodic timer called, time since boot: %lld us", time_since_boot);
     printf("Timer Expire\r\n");
+    printf("at_pre_deepsleep_callback\r\n");
+    /* Do something before deep sleep
+     * Set uart pin for power saving, in case of leakage current
+    */
+    if (s_at_uart_port_pin.tx >= 0) {
+        gpio_set_direction(s_at_uart_port_pin.tx, GPIO_MODE_DISABLE);
+    }
+    if (s_at_uart_port_pin.rx >= 0) {
+        gpio_set_direction(s_at_uart_port_pin.rx, GPIO_MODE_DISABLE);
+    }
+    if (s_at_uart_port_pin.cts >= 0) {
+        gpio_set_direction(s_at_uart_port_pin.cts, GPIO_MODE_DISABLE);
+    }
+    if (s_at_uart_port_pin.rts >= 0) {
+        gpio_set_direction(s_at_uart_port_pin.rts, GPIO_MODE_DISABLE);
+    }
+
+    esp_sleep_enable_ext0_wakeup(ext_wakeup_pin_0, 0);
+    rtc_gpio_pullup_en(ext_wakeup_pin_0);
+    rtc_gpio_pulldown_dis(ext_wakeup_pin_0);
+    printf("deepsleep...\r\n");
+    vTaskDelay(100);    
+    esp_deep_sleep_start();
 }
 
