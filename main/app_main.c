@@ -304,7 +304,7 @@ static void periodic_timer_callback(void* arg)
     /* Do something before deep sleep
      * Set uart pin for power saving, in case of leakage current
     */
-    if (s_at_uart_port_pin.tx >= 0) {
+    /*if (s_at_uart_port_pin.tx >= 0) {
         gpio_set_direction(s_at_uart_port_pin.tx, GPIO_MODE_DISABLE);
     }
     if (s_at_uart_port_pin.rx >= 0) {
@@ -316,7 +316,7 @@ static void periodic_timer_callback(void* arg)
     if (s_at_uart_port_pin.rts >= 0) {
         gpio_set_direction(s_at_uart_port_pin.rts, GPIO_MODE_DISABLE);
     }
-
+*/
     esp_sleep_enable_ext0_wakeup(ext_wakeup_pin_0, 0);
     rtc_gpio_pullup_en(ext_wakeup_pin_0);
     rtc_gpio_pulldown_dis(ext_wakeup_pin_0);
