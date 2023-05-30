@@ -29,6 +29,8 @@
 #include "esp_system.h"
 #include "nvs_flash.h"
 #include "esp_timer.h"
+#include "esp_sleep.h"
+#include "driver/rtc_io.h"
 
 #ifdef CONFIG_AT_WIFI_COMMAND_SUPPORT
 #include "esp_event.h"
@@ -294,7 +296,7 @@ static void periodic_timer_callback(void* arg)
     //int64_t time_since_boot = esp_timer_get_time();
     //ESP_LOGI(TAG, "Periodic timer called, time since boot: %lld us", time_since_boot);
     printf("Timer Expire\r\n");
-    printf("at_pre_deepsleep_callback\r\n");
+    //printf("at_pre_deepsleep_callback\r\n");
     /* Do something before deep sleep
      * Set uart pin for power saving, in case of leakage current
     */
