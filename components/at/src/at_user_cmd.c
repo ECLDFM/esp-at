@@ -439,6 +439,7 @@ static uint8_t at_query_cmd_userdocs(uint8_t *cmd_name)
 #ifdef CONFIG_AT_USERWKMCU_COMMAND_SUPPORT
 void at_set_mcu_state_if_sleep(at_sleep_mode_t mode)
 {
+    uint64_t time = esp_timer_get_time();
     printf("at_set_mcu_state_if_sleep: %d\r\n", mode);
     switch (mode) {
     case AT_DISABLE_SLEEP:
@@ -449,7 +450,8 @@ void at_set_mcu_state_if_sleep(at_sleep_mode_t mode)
 
     case AT_MIN_MODEM_SLEEP:
         //esp_at_port_active_write_data((uint8_t *)"\r\nAT_MIN_MODEM_SLEEP\r\n",strlen("\r\nAT_MIN_MODEM_SLEEP\r\n"));
-        printf("Timer: %lld\r\n", (esp_timer_get_time()));
+        printf("Timer: ");
+        printf("%" PRIx64 "\r\n", time);
         break;
     case AT_LIGHT_SLEEP:
         //esp_at_port_active_write_data((uint8_t *)"\r\nAT_LIGHT_SLEEP\r\n",strlen("\r\nAT_LIGHT_SLEEP\r\n"));
