@@ -28,6 +28,7 @@
 #include "freertos/task.h"
 #include "esp_system.h"
 #include "nvs_flash.h"
+#include "esp_timer.h"
 
 #ifdef CONFIG_AT_WIFI_COMMAND_SUPPORT
 #include "esp_event.h"
@@ -44,6 +45,8 @@
 #ifndef CONFIG_AT_SOCKET_MAX_CONN_NUM
 #define CONFIG_AT_SOCKET_MAX_CONN_NUM       1
 #endif
+
+static void periodic_timer_callback(void* arg);
 
 #ifdef CONFIG_AT_WIFI_COMMAND_SUPPORT
 esp_err_t at_wifi_init(void)
@@ -271,4 +274,24 @@ void app_main(void)
 #endif
 
     at_custom_init();
+
+    
+    const esp_timer_create_args_t periodic_timer_args = {
+            .callback = &periodic_timer_callback,
+            /* name is optional, but may help identify the timer when debugging */
+            .name = "periodic"
+    };
+    printf("Start Timer\r\n");
+    esp_timer_handle_t periodic_timer;
+    esp_timer_create(&periodic_timer_args, &periodic_timer);
+    /* The timer has been created but is not running yet */
+    esp_timer_start_periodic(periodic_timer, 10000000);
 }
+
+static void periodic_timer_callback(void* arg)
+{
+    //int64_t time_since_boot = esp_timer_get_time();
+    //ESP_LOGI(TAG, "Periodic timer called, time since boot: %lld us", time_since_boot);
+    printf("Timer Expire\r\n");
+}
+
