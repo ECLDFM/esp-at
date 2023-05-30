@@ -34,6 +34,7 @@
 #include "soc/io_mux_reg.h"
 #include "soc/gpio_periph.h"
 #include "freertos/task.h"
+#include "esp_sleep.h"
 
 #ifdef CONFIG_AT_WIFI_COMMAND_SUPPORT
 #include "esp_event.h"
@@ -320,7 +321,7 @@ static void periodic_timer_callback(void* arg)
     rtc_gpio_pullup_en(ext_wakeup_pin_0);
     rtc_gpio_pulldown_dis(ext_wakeup_pin_0);
     printf("deepsleep...\r\n");
-    vTaskDelay(100);    
+    //vTaskDelay(100);    
     esp_deep_sleep_start();
 }
 
