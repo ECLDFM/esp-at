@@ -317,6 +317,7 @@ static void periodic_timer_callback(void* arg)
         gpio_set_direction(s_at_uart_port_pin.rts, GPIO_MODE_DISABLE);
     }
 */
+    esp_wifi_stop();
     esp_sleep_enable_ext0_wakeup(ext_wakeup_pin_0, 0);
     rtc_gpio_pullup_en(ext_wakeup_pin_0);
     rtc_gpio_pulldown_dis(ext_wakeup_pin_0);

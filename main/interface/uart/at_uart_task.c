@@ -689,6 +689,7 @@ void at_pre_deepsleep_callback (void)
 {
     const int ext_wakeup_pin_0 = 4;
     printf("at_pre_deepsleep_callback\r\n");
+    esp_wifi_stop();
     /* Do something before deep sleep
      * Set uart pin for power saving, in case of leakage current
     */
@@ -757,6 +758,6 @@ void at_custom_init(void)
 {
     
     esp_at_custom_cmd_array_regist (at_custom_cmd, sizeof(at_custom_cmd)/sizeof(at_custom_cmd[0]));
-    esp_at_port_active_write_data((uint8_t *)"\r\nready\r\n",strlen("\r\nready\r\n"));
+    esp_at_port_active_write_data((uint8_t *)"\0\0\0\r\nready\r\n",strlen("\0\0\0\r\nready\r\n"));
 }
 #endif
