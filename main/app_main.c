@@ -31,6 +31,9 @@
 #include "esp_timer.h"
 #include "esp_sleep.h"
 #include "driver/rtc_io.h"
+#include "soc/io_mux_reg.h"
+#include "soc/gpio_periph.h"
+#include "freertos/task.h"
 
 #ifdef CONFIG_AT_WIFI_COMMAND_SUPPORT
 #include "esp_event.h"
