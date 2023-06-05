@@ -297,6 +297,8 @@ void app_main(void)
 static void periodic_timer_callback(void* arg)
 {
     const int ext_wakeup_pin_0 = 4;
+   wifi_ap_record_t info;
+
     //int64_t time_since_boot = esp_timer_get_time();
     //ESP_LOGI(TAG, "Periodic timer called, time since boot: %lld us", time_since_boot);
     printf("Timer Expire\r\n");
@@ -317,6 +319,7 @@ static void periodic_timer_callback(void* arg)
         gpio_set_direction(s_at_uart_port_pin.rts, GPIO_MODE_DISABLE);
     }
 */
+   if (esp_wifi_sta_get_ap_info(&info) == ESP_OK) {
     esp_wifi_stop();
     esp_sleep_enable_ext0_wakeup(ext_wakeup_pin_0, 0);
     rtc_gpio_pullup_en(ext_wakeup_pin_0);
@@ -324,5 +327,8 @@ static void periodic_timer_callback(void* arg)
     printf("deepsleep...\r\n");
     //vTaskDelay(100);    
     esp_deep_sleep_start();
+
+   }
+
 }
 
